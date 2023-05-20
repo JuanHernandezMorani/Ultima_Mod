@@ -1,27 +1,292 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="845fd1a7-86ad-4703-9f1c-2175fd7bb3d0" name="Changes" comment="" />
+    <list default="true" id="845fd1a7-86ad-4703-9f1c-2175fd7bb3d0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/runClient.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/runData.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/runGameTestServer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/runServer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/config/fml.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/config/forge-client.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/config/forge-common.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-18_00.54.10-fml.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-18_01.00.49-fml.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-18_04.13.36-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-18_04.16.01-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-19_14.26.23-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-19_17.31.07-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-19_17.35.03-client.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2022-11-13-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2022-11-13-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-12-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-10.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-11.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-12.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-15.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-16.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-17.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-18.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-19.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-20.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-21.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-8.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-18-9.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-10.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-11.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-12.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-13.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-14.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-15.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-16.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-17.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-18.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-19.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-20.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-21.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-22.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-23.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-24.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-25.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-26.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-27.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-6.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-7.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-8.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-9.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug-1.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug-3.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug-4.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug-5.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/debug.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/latest.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/options.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/DIM-1/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/DIM-1/data/raids.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/DIM1/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/DIM1/data/raids_end.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/advancements/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/data/raids.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/entities/r.-1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/entities/r.-1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/entities/r.0.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/entities/r.0.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/level.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/level.dat_old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/playerdata/380df991-f603-344c-a090-369bad2a924a.dat_old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.-1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.-1.-2.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.-1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.0.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.0.-2.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.0.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/poi/r.1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.-1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.-1.-2.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.-1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.0.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.0.-2.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.0.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.1.-2.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/region/r.1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/serverconfig/forge-server.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/session.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/test to version 1_0_0_1/stats/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/screenshots/2023-05-19_18.59.13.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/usercache.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/usernamecache.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/Items/ZombieBossSpawnEgg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/Ultima.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/client/models/ZombieBossModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/client/renderer/ZombieBossRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/entities/ZombieBossEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsAttrsEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsRendererEvents.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/EntityInit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/InitItems.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/ModsInit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/upgrades/MejoraAldeas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/utils/Summon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/lang/en_us.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/models/item/zombie_boss_spawn_egg.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/textures/entities/zombieboss.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/textures/items/zombie_boss_spawn_egg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/pack.mcmeta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ultima.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Ultima" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Ultima" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Ultima" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2Pi4GZsbLJn0sipYNJUhwqvbUsn" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/ProgramacionModsMinecraft/Ultima/run/mods&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\ProgramacionModsMinecraft\Ultima\run\mods" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\ProgramacionModsMinecraft\Ultima\src\main\resources\assets\ultima\textures\entities" />
+      <recent name="F:\ProgramacionModsMinecraft\Ultima\src\main\resources\assets\ultima\textures\items" />
+      <recent name="F:\ProgramacionModsMinecraft\Ultima\src\main\resources\old" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.Ultima [build]">
+    <configuration name="Ultima [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Ultima [genIntellijRuns]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="genIntellijRuns" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Ultima [build]" />
+        <item itemvalue="Gradle.Ultima [genIntellijRuns]" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -43,5 +308,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

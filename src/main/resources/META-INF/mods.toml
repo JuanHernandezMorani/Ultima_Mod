@@ -1,0 +1,36 @@
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+# Forge for 1.19 is version 41
+loaderVersion="[41,42,43,44,45,46)"
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="https://docs.google.com/document/d/1oRLUkXiLlfwZmhaV6TtDGLMaaDNxLJE7rILVbnH9mVw/edit?usp=sharing"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://docs.google.com/document/d/1oRLUkXiLlfwZmhaV6TtDGLMaaDNxLJE7rILVbnH9mVw/edit?usp=sharing"
+# A list of mods - how many allowed here is determined by the individual mod loader
+showAsResourcePack=false
+
+[[mods]]
+
+modId="ultima"
+version="1.0.0.1"
+displayName="Ultima"
+updateJSONURL=""
+displayURL=""
+logoFile=""
+credits="Enjoy!"
+authors="Cheto97"
+description='''
+Are you good enought to survive?
+Test yourself and become the most powerfull warrior in all worlds...
+'''
+
+# displayTest="MATCH_VERSION"
+
+# [[dependencies.ultima]]
+# modId=""
+# mandatory=true
+# versionRange=""
+# ordering="NONE"
+# side="BOTH"

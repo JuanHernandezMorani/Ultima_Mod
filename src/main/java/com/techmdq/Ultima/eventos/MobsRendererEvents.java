@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 public class MobsRendererEvents {
 
     @SubscribeEvent
-    public static void entityRenders(EntityRenderersEvent.RegisterRenderers event){
+    public  void entityRenders(EntityRenderersEvent.RegisterRenderers event){
         event.registerEntityRenderer(ModsInit.ZOMBIEBOSS.get(), ZombieBossRenderer::new);
     }
 

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.Mod;
 public class MobsAttrsEvent {
 
     @SubscribeEvent
-    public static void entityAttributes(EntityAttributeCreationEvent event){
+    public void entityAttributes(EntityAttributeCreationEvent event){
         event.put(ModsInit.ZOMBIEBOSS.get(), ZombieBossEntity.createAttributes().build());
     }
 }

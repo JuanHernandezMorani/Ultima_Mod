@@ -1,5 +1,7 @@
 package com.techmdq.Ultima.init;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.techmdq.Ultima.Ultima;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,16 +12,29 @@ import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Ultima.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class EntityAttributeModifier {
+    private static final Map<EntityType<?>, double[]> entityAttributes = new HashMap<>();
+
+    static {
+        initializeEntityAttributes();
+    }
 
     @SubscribeEvent
     public void onLivingSpawn(LivingSpawnEvent.@NotNull CheckSpawn event) {
         EntityType<?> entityType = event.getEntity().getType();
 
-        HashMap<EntityType<?>, double[]> entityAttributes = new HashMap<>();
+        double[] attributes = entityAttributes.get(entityType);
+        if (attributes != null) {
+            modifyEntityAttributes(event.getEntity(), attributes);
+        }
+    }
+
+
+    private static void initializeEntityAttributes() {
         entityAttributes.put(EntityType.ALLAY, new double[]{4, 10, 1, 2, 4, 4, 1, 1, 0});
         entityAttributes.put(EntityType.AXOLOTL, new double[]{4, 10, 1, 2, 4, 4, 1, 1, 0});
         entityAttributes.put(EntityType.BAT, new double[]{4, 10, 1, 2, 4, 4, 1, 1, 0});
@@ -90,49 +105,29 @@ public class EntityAttributeModifier {
         entityAttributes.put(EntityType.ZOMBIE_HORSE, new double[]{30, 10, 1, 2, 4, 4, 1, 1, 0});
         entityAttributes.put(EntityType.ZOMBIFIED_PIGLIN, new double[]{20, 10, 1, 2, 4, 4, 1, 1, 0});
         entityAttributes.put(EntityType.ZOMBIE_VILLAGER, new double[]{20, 10, 1, 2, 4, 4, 1, 1, 0});
-
-        double[] attributes = entityAttributes.get(entityType);
-        if (attributes != null) {
-            attMod(event.getEntity(), attributes[0], attributes[1], attributes[2], attributes[3],
-                    attributes[4], attributes[5], attributes[6], attributes[7], attributes[8]);
-        }
-        
     }
 
-    public void attMod(@NotNull LivingEntity entity, double lifeValue, double manaValue, double defenseValue, double strengthValue,
-                       double dexterityValue, double agilityValue, double commandValue, double luckValue,
-                       double intelligentValue){
-
+    private void modifyEntityAttributes(@NotNull LivingEntity entity, double[] attributes) {
         AttributeMap attributeMap = entity.getAttributes();
+        Multimap<Attribute, AttributeModifier> attributeModifiers = ArrayListMultimap.create();
 
-        modifyAttribute(attributeMap, ModAttributes.LIFE.get(), lifeValue);
-        modifyAttribute(attributeMap, ModAttributes.MANA.get(), manaValue);
-        modifyAttribute(attributeMap, ModAttributes.DEFENSE.get(), defenseValue);
-        modifyAttribute(attributeMap, ModAttributes.STRENGTH.get(), strengthValue);
-        modifyAttribute(attributeMap, ModAttributes.DEXTERITY.get(), dexterityValue);
-        modifyAttribute(attributeMap, ModAttributes.AGILITY.get(), agilityValue);
-        modifyAttribute(attributeMap, ModAttributes.COMMAND.get(), commandValue);
-        modifyAttribute(attributeMap, ModAttributes.LUCK.get(), luckValue);
-        modifyAttribute(attributeMap, ModAttributes.INTELLIGENT.get(), intelligentValue);
+        addAttributeModifier(attributeModifiers, ModAttributes.LIFE.get(), attributes[0]);
+        addAttributeModifier(attributeModifiers, ModAttributes.MANA.get(), attributes[1]);
+        addAttributeModifier(attributeModifiers, ModAttributes.DEFENSE.get(), attributes[2]);
+        addAttributeModifier(attributeModifiers, ModAttributes.STRENGTH.get(), attributes[3]);
+        addAttributeModifier(attributeModifiers, ModAttributes.DEXTERITY.get(), attributes[4]);
+        addAttributeModifier(attributeModifiers, ModAttributes.AGILITY.get(), attributes[5]);
+        addAttributeModifier(attributeModifiers, ModAttributes.COMMAND.get(), attributes[6]);
+        addAttributeModifier(attributeModifiers, ModAttributes.LUCK.get(), attributes[7]);
+        addAttributeModifier(attributeModifiers, ModAttributes.INTELLIGENT.get(), attributes[8]);
 
-
-    }
-    private void modifyAttribute(@NotNull AttributeMap attributeMap, Attribute attribute, double value) {
-        AttributeInstance attributeInstance = attributeMap.getInstance(attribute);
-        if (attributeInstance != null) {
-            AttributeModifier existingModifier = attributeInstance.getModifier(UUID.fromString(attribute.getDescriptionId()));
-            if (existingModifier != null) {
-                attributeInstance.removeModifier(existingModifier);
-            }
-            AttributeModifier newModifier = new AttributeModifier(attribute.getDescriptionId(), value, AttributeModifier.Operation.ADDITION);
-            attributeInstance.addPermanentModifier(newModifier);
-        }
+        attributeMap.addTransientAttributeModifiers(attributeModifiers);
     }
 
+    private void addAttributeModifier(Multimap<Attribute, AttributeModifier> attributeModifiers,
+                                      Attribute attribute, double value) {
+        AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), attribute.getDescriptionId(), value,
+                AttributeModifier.Operation.ADDITION);
+        attributeModifiers.put(attribute, modifier);
+    }
 }
-
-
-
-
-
-

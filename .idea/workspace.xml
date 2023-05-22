@@ -5,71 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="845fd1a7-86ad-4703-9f1c-2175fd7bb3d0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/run/crash-reports/crash-2023-05-20_03.07.14-fml.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-29.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-19-30.log.gz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/handlers/AttackEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/hud/CustomButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/hud/StatsMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/hud/statScreen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/EntityAttributeModifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/ModAttributes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Agility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Defense.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Dexterity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Intelligent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Life.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Luck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Range_Damage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Strength.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/textures/button/disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/textures/button/hovered.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/ultima/textures/button/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/logs/2023-05-21-2.log.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/DIM-1/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/DIM-1/data/raids.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/DIM1/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/DIM1/data/raids_end.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/advancements/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/data/capabilities.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/data/raids.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/entities/r.-1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/entities/r.-1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/entities/r.0.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/entities/r.0.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/level.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/level.dat_old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/region/r.-1.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/region/r.-1.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/region/r.0.-1.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/region/r.0.0.mca" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/serverconfig/forge-server.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/session.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/run/saves/Testing custom attributes/stats/380df991-f603-344c-a090-369bad2a924a.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/RangeDamage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4.2/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/Ultima.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/Ultima.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/eventos/MobsAttrsEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/eventos/MobsAttrsEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/eventos/MobsRendererEvents.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/techmdq/Ultima/eventos/MobsRendererEvents.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/Ultima-1.0.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/Ultima-1.0.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reobfJar/output.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/reobfJar/output.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-1.log.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-10.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-10.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-11.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-11.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-12.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-12.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-13.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-13.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-14.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-14.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-15.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-15.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-16.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-16.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-17.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-17.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-18.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-18.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-19.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-19.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-2.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-20.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-20.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-21.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-21.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-22.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-22.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-23.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-23.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-24.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-24.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-25.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-25.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-26.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-26.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-27.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-27.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-28.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-28.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-3.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-4.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-4.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-5.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-6.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-6.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-7.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-7.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-8.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-8.log.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-19-9.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-19-9.log.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/logs/2023-05-21-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/2023-05-21-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-1.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-1.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-2.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-2.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug-3.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-3.log.gz" afterDir="false" />
@@ -77,10 +47,62 @@
       <change beforePath="$PROJECT_DIR$/run/logs/debug-5.log.gz" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug-5.log.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/debug.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/run/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/run/logs/latest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM-1/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM-1/data/raids.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM1/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/DIM1/data/raids_end.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/advancements/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/data/raids.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/entities/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/entities/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/entities/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/entities/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/level.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/level.dat_old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/region/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/serverconfig/forge-server.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/session.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/New World/stats/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/DIM-1/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/DIM-1/data/raids.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/DIM1/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/DIM1/data/raids_end.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/advancements/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/data/capabilities.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/data/raids.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/entities/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/entities/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/entities/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/entities/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/level.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/level.dat_old" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/playerdata/380df991-f603-344c-a090-369bad2a924a.dat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/region/r.-1.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/region/r.-1.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/region/r.0.-1.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/region/r.0.0.mca" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/serverconfig/forge-server.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/session.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/run/saves/Test attributes v1_0_1_0/stats/380df991-f603-344c-a090-369bad2a924a.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/run/usercache.json" beforeDir="false" afterPath="$PROJECT_DIR$/run/usercache.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/Ultima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/Ultima.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsAttrsEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsAttrsEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsRendererEvents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/eventos/MobsRendererEvents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/entities/ZombieBossEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/entities/ZombieBossEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/handlers/AttackEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/handlers/AttackEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/EntityAttributeModifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/init/EntityAttributeModifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Agility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Agility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Defense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Defense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Dexterity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Dexterity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Intelligent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Intelligent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Life.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Life.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Luck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Luck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Range_Damage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Strength.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/techmdq/Ultima/statseffects/Strength.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +192,7 @@
       <recent name="F:\ProgramacionModsMinecraft\Ultima\src\main\resources\old" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.runClient">
+  <component name="RunManager" selected="Gradle.Ultima [build]">
     <configuration name="Ultima [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />

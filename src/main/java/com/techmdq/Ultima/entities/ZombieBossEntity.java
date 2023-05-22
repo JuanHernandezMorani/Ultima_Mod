@@ -27,8 +27,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.*;
@@ -42,6 +44,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraftforge.server.ServerLifecycleHooks;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -51,15 +54,15 @@ import java.util.function.Predicate;
 public class ZombieBossEntity extends Zombie {
 
     private static final Predicate<LivingEntity> LIVING_ENTITY_SELECTOR = (p_31504_) -> p_31504_.getMobType() != MobType.UNDEAD && p_31504_.attackable();
-    BossEvent.BossBarColor barColor = BossEvent.BossBarColor.GREEN;
+    BossEvent.BossBarColor barColor;
     private static final int DIAMOND_COUNT = 32;
     private static final int IRON_INGOT_COUNT = 32;
     private static final int GOLD_INGOT_COUNT = 32;
     private static final int OBSIDIAN_COUNT = 16;
     private static double playerCount = 1.0D;
 
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(Component.literal("[Zombie Boss] Swyx, el gran comandante caido"), barColor, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-    private ServerBossEvent.BossBarColor nextColor;
+    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(Component.literal("[Zombie Boss] Swyx, el gran comandante caído"), ServerBossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+    private final ServerBossEvent.BossBarColor nextColor;
     private boolean revived = false;
     AttributeModifier healthModifier = new AttributeModifier("HealthModifier", 5, AttributeModifier.Operation.ADDITION);
     AttributeModifier movementSpeedModifier = new AttributeModifier("MovementSpeedModifier", 0.2, AttributeModifier.Operation.ADDITION);
@@ -69,7 +72,6 @@ public class ZombieBossEntity extends Zombie {
     AttributeModifier armorModifier = new AttributeModifier("ArmorModifier", 5, AttributeModifier.Operation.ADDITION);
     private static final double MAX_HEALTH = 120.0D*playerCount;
     private boolean isAttacking;
-
     public ZombieBossEntity(EntityType<? extends Zombie> type, Level level) {
         super(type, level);
         this.bossEvent.setPlayBossMusic(true);
@@ -95,10 +97,10 @@ public class ZombieBossEntity extends Zombie {
         Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_SPEED)).setBaseValue(attributes.getValue(Attributes.ATTACK_SPEED));
         this.addRandomEquipment();
         this.nextColor = ServerBossEvent.BossBarColor.YELLOW;
-
+        this.barColor = ServerBossEvent.BossBarColor.GREEN;
+        this.bossEvent.setColor(barColor);
         MinecraftForge.EVENT_BUS.register(this);
     }
-
     protected void registerGoals() {
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -120,7 +122,6 @@ public class ZombieBossEntity extends Zombie {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 0, false, false, LIVING_ENTITY_SELECTOR));
     }
-
     private void addRandomEquipment() {
         this.setItemSlot(EquipmentSlot.MAINHAND, addEnchantments(new ItemStack(Items.NETHERITE_SWORD),"MAINHAND"));
         this.setItemSlot(EquipmentSlot.OFFHAND, addEnchantments(new ItemStack(Items.SHIELD),"OFFHAND"));
@@ -129,29 +130,23 @@ public class ZombieBossEntity extends Zombie {
         this.setItemSlot(EquipmentSlot.LEGS, addEnchantments(new ItemStack(Items.NETHERITE_LEGGINGS),"LEGS"));
         this.setItemSlot(EquipmentSlot.FEET, addEnchantments(new ItemStack(Items.NETHERITE_BOOTS),"FEET"));
     }
-    public boolean isWearingNetheriteArmor(){
-        return true;
-    }
-
     public void setCustomName(@Nullable Component p_31476_) {
         super.setCustomName(p_31476_);
         this.bossEvent.setName(this.getDisplayName());
     }
-
     public void startSeenByPlayer(@NotNull ServerPlayer p_31483_) {
         super.startSeenByPlayer(p_31483_);
         this.bossEvent.addPlayer(p_31483_);
     }
-
     public void stopSeenByPlayer(@NotNull ServerPlayer p_31488_) {
         super.stopSeenByPlayer(p_31488_);
         this.bossEvent.removePlayer(p_31488_);
     }
-
     public boolean canChangeDimensions() {
         return true;
     }
-    private ItemStack addEnchantments(ItemStack itemStack,String slot) {
+    @Contract("_, _ -> param1")
+    private ItemStack addEnchantments(ItemStack itemStack, @NotNull String slot) {
         switch (slot) {
             case "MAINHAND" -> {
                 itemStack.enchant(Enchantments.SHARPNESS, Enchantments.SHARPNESS.getMaxLevel());
@@ -178,20 +173,16 @@ public class ZombieBossEntity extends Zombie {
 
         return itemStack;
     }
-
     @Override
     protected boolean shouldDropLoot() {
         return true;
     }
-
     public boolean isAttacking() {
         return isAttacking;
     }
-
     public void setAttacking(boolean attacking) {
         isAttacking = attacking;
     }
-
     public ItemStack dropCustomDeathLoot() {
         List<ItemStack> customLoots = new ArrayList<>();
 
@@ -199,59 +190,57 @@ public class ZombieBossEntity extends Zombie {
             ItemStack helmet = new ItemStack(Items.NETHERITE_HELMET);
             int count = 0;
 
-
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     helmet.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.HEAD);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     helmet.enchant(Enchantments.BLAST_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     helmet.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     helmet.enchant(Enchantments.FIRE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     helmet.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1));
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, 1));
-                    count = count + 1;
+                    count++;
                 }
-            }else{
+            } else {
                 count = -1;
-
                 this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, Integer.MAX_VALUE, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Integer.MAX_VALUE, 1));
                 helmet.enchant(Enchantments.FIRE_PROTECTION, 10);
@@ -265,95 +254,85 @@ public class ZombieBossEntity extends Zombie {
                 helmet.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.HEAD);
                 helmet.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.HEAD);
             }
-            
 
             helmet.enchant(Enchantments.UNBREAKING, 50);
 
-            if(count == -1){
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie(✵✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie(✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie(✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie(✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 11){
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie(✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else{
-                setItemNameAndLore(helmet, "§eCasco del comandante zombie",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
+            String itemName;
+            if (count == -1) {
+                itemName = "§eCasco del comandante zombie(✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§eCasco del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§eCasco del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§eCasco del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§eCasco del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§eCasco del comandante zombie";
             }
 
+            setItemNameAndLore(helmet, itemName,
+                    "§7La legendaria armadura que utilizó un gran comandante",
+                    "§7antes de sucumbir ante la infección");
 
             customLoots.add(helmet);
         }
 
         if (this.random.nextFloat() <= 0.25F) {
             ItemStack chestplate = new ItemStack(Items.NETHERITE_CHESTPLATE);
-
             int count = 0;
 
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
                     chestplate.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.CHEST);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
                     chestplate.enchant(Enchantments.BLAST_PROTECTION, 10);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
                     chestplate.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
                     chestplate.enchant(Enchantments.FIRE_PROTECTION, 10);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
                     chestplate.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
-                    count = count + 1;
                     this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 3));
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
-                    count = count + 1;
                     this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
+                    count++;
                 }
-            }else{
+            } else {
                 count = -1;
                 this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
                 this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 3));
@@ -369,97 +348,84 @@ public class ZombieBossEntity extends Zombie {
                 chestplate.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
             }
 
-
-
             chestplate.enchant(Enchantments.UNBREAKING, 50);
 
-            if(count == -1){
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie(✵✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie(✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie(✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie(✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 11){
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie(✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else{
-                setItemNameAndLore(chestplate, "§ePechera del comandante zombie",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
+            String itemName;
+            if (count == -1) {
+                itemName = "§ePechera del comandante zombie(✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§ePechera del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§ePechera del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§ePechera del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§ePechera del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§ePechera del comandante zombie";
             }
 
-
-
+            setItemNameAndLore(chestplate, itemName,
+                    "§7La legendaria armadura que utilizó un gran comandante",
+                    "§7antes de sucumbir ante la infección");
 
             customLoots.add(chestplate);
         }
 
         if (this.random.nextFloat() <= 0.5F) {
             ItemStack leggings = new ItemStack(Items.NETHERITE_LEGGINGS);
-
             int count = 0;
 
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     leggings.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     leggings.enchant(Enchantments.BLAST_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     leggings.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     leggings.enchant(Enchantments.FIRE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     leggings.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.05F) {
-                    count = count + 1;
+                    count++;
                     this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
                 }
                 if (this.random.nextFloat() <= 0.05F) {
-                    count = count + 1;
+                    count++;
                     this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Integer.MAX_VALUE, 1));
                 }
-            }else{
+            } else {
                 count = -1;
                 this.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, Integer.MAX_VALUE, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Integer.MAX_VALUE, 1));
@@ -475,94 +441,84 @@ public class ZombieBossEntity extends Zombie {
                 leggings.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
             }
 
-
-
             leggings.enchant(Enchantments.UNBREAKING, 50);
 
-            if(count == -1){
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie(✵✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie(✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie(✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie(✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 11){
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie(✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else{
-                setItemNameAndLore(leggings, "§ePantalon del comandante zombie",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
+            String itemName;
+            if (count == -1) {
+                itemName = "§ePantalon del comandante zombie(✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§ePantalon del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§ePantalon del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§ePantalon del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§ePantalon del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§ePantalon del comandante zombie";
             }
+
+            setItemNameAndLore(leggings, itemName,
+                    "§7La legendaria armadura que utilizó un gran comandante",
+                    "§7antes de sucumbir ante la infección");
 
             customLoots.add(leggings);
         }
 
         if (this.random.nextFloat() <= 0.83F) {
             ItemStack boots = new ItemStack(Items.NETHERITE_BOOTS);
-
             int count = 0;
 
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     boots.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     boots.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     boots.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     boots.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
-                    count = count + 1;
+                    count++;
                     boots.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.CHEST);
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
+                    count++;
                     boots.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.CHEST);
-                    count = count + 1;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
+                    count++;
                     boots.enchant(Enchantments.BLAST_PROTECTION, 10);
-                    count = count + 1;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     boots.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     boots.enchant(Enchantments.FIRE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.1F) {
-                    count = count + 1;
+                    count++;
                     boots.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
                 }
                 if (this.random.nextFloat() <= 0.05F) {
+                    count++;
                     this.addEffect(new MobEffectInstance(MobEffects.JUMP, Integer.MAX_VALUE, 2));
-                    count = count + 1;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
+                    count++;
                     this.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 1));
-                    count = count + 1;
                 }
-            }else{
+            } else {
                 count = -1;
                 this.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Integer.MAX_VALUE, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.JUMP, Integer.MAX_VALUE, 2));
@@ -578,97 +534,84 @@ public class ZombieBossEntity extends Zombie {
                 boots.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.CHEST);
             }
 
-
-
             boots.enchant(Enchantments.UNBREAKING, 50);
 
-            if(count == -1){
-                setItemNameAndLore(boots, "§eBotas del comandante zombie(✵✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(boots, "§eBotas del comandante zombie(✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(boots, "§eBotas del comandante zombie(✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(boots, "§eBotas del comandante zombie(✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else if(count >= 11){
-                setItemNameAndLore(boots, "§eBotas del comandante zombie(✵✵✵✵)",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
-            }else{
-                setItemNameAndLore(boots, "§eBotas del comandante zombie",
-                        "§7La legendaria armadura que utilizó un gran comandante",
-                        "§7antes de sucumbir ante la infección");
+            String itemName;
+            if (count == -1) {
+                itemName = "§eBotas del comandante zombie(✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§eBotas del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§eBotas del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§eBotas del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§eBotas del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§eBotas del comandante zombie";
             }
 
-
-
+            setItemNameAndLore(boots, itemName,
+                    "§7La legendaria armadura que utilizó un gran comandante",
+                    "§7antes de sucumbir ante la infección");
 
             customLoots.add(boots);
         }
 
         if (this.random.nextFloat() <= 0.424F) {
             ItemStack sword = new ItemStack(Items.NETHERITE_SWORD);
-
             int count = 0;
 
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     sword.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.MAINHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     sword.enchant(Enchantments.MOB_LOOTING, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     sword.enchant(Enchantments.BANE_OF_ARTHROPODS, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     sword.enchant(Enchantments.SMITE, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     sword.enchant(Enchantments.SHARPNESS, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 3));
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
-                    count = count + 1;
+                    count++;
                 }
-            }else{
+            } else {
                 count = -1;
                 this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
                 this.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, Integer.MAX_VALUE, 3));
@@ -685,95 +628,84 @@ public class ZombieBossEntity extends Zombie {
             }
 
             sword.enchant(Enchantments.UNBREAKING, 50);
-            
 
-            if(count == -1){
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie (✵✵✵✵✵)",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie(✵)",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie(✵✵)",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie(✵✵✵)",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");
-            }else if(count >= 11){
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie(✵✵✵✵)",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");
-            }else{
-                setItemNameAndLore(sword, "§eLa espada del comandante zombie",
-                        "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismisimo NOTCH",
-                        "§7para enfrentarse al temible herobrine hace mucho tiempo atras.");  
+            String itemName;
+            if (count == -1) {
+                itemName = "§eLa espada del comandante zombie (✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§eLa espada del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§eLa espada del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§eLa espada del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§eLa espada del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§eLa espada del comandante zombie";
             }
 
-
-
+            setItemNameAndLore(sword, itemName,
+                    "§7La gran espada del comandante, cuenta la leyenda, que se la dio el mismísimo NOTCH",
+                    "§7para enfrentarse al temible Herobrine hace mucho tiempo atrás.");
 
             customLoots.add(sword);
         }
 
         if (this.random.nextFloat() <= 0.65F) {
             ItemStack shield = new ItemStack(Items.SHIELD);
-            
+
             int count = 0;
 
-            if(this.random.nextFloat() <= 0.6F){
+            if (this.random.nextFloat() <= 0.6F) {
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.OFFHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.MOVEMENT_SPEED, movementSpeedModifier, EquipmentSlot.OFFHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.ATTACK_SPEED, attackSpeedModifier, EquipmentSlot.OFFHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.ATTACK_DAMAGE, attackDamageModifier, EquipmentSlot.OFFHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.ARMOR_TOUGHNESS, armorToughnessModifier, EquipmentSlot.OFFHAND);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1667F) {
                     shield.addAttributeModifier(Attributes.ARMOR, armorModifier, EquipmentSlot.CHEST);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     shield.enchant(Enchantments.BLAST_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     shield.enchant(Enchantments.PROJECTILE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     shield.enchant(Enchantments.FIRE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.1F) {
                     shield.enchant(Enchantments.ALL_DAMAGE_PROTECTION, 10);
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, Integer.MAX_VALUE, 3));
-                    count = count + 1;
+                    count++;
                 }
                 if (this.random.nextFloat() <= 0.05F) {
                     this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, Integer.MAX_VALUE, 1));
-                    count = count + 1;
+                    count++;
                 }
-            }else{
+            } else {
                 count = -1;
                 this.addEffect(new MobEffectInstance(MobEffects.REGENERATION, Integer.MAX_VALUE, 1));
                 this.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, Integer.MAX_VALUE, 3));
@@ -789,40 +721,30 @@ public class ZombieBossEntity extends Zombie {
                 shield.addAttributeModifier(Attributes.MAX_HEALTH, healthModifier, EquipmentSlot.OFFHAND);
             }
 
-            
             shield.enchant(Enchantments.UNBREAKING, 50);
 
-            if(count == -1){
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie(✵✵✵✵✵)",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos",
-                        "§7tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
-            }else if(count > 2 && count < 5){
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie(✵)",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos",
-                        "§7tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
-            }else if(count >= 5 && count < 8 ){
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie(✵✵)",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos",
-                        "§7tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
-            }else if(count >= 9 && count < 11){
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie(✵✵✵)",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos " +
-                                "tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
-            }else if(count >= 11){
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie(✵✵✵✵)",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos",
-                        "§7tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
-            }else{
-                setItemNameAndLore(shield, "§eEl gran escudo del comandante zombie",
-                        "§7El mejor escudo creado por los una raza desconocida en tiempos antiguos",
-                        "§7tan fuerte que resistio ataques del Wither, y se dice que de otro ente aun mas fuerte...");
+            String itemName;
+            if (count == -1) {
+                itemName = "§eEl gran escudo del comandante zombie(✵✵✵✵✵)";
+            } else if (count > 2 && count < 5) {
+                itemName = "§eEl gran escudo del comandante zombie(✵)";
+            } else if (count >= 5 && count < 8) {
+                itemName = "§eEl gran escudo del comandante zombie(✵✵)";
+            } else if (count >= 9 && count < 11) {
+                itemName = "§eEl gran escudo del comandante zombie(✵✵✵)";
+            } else if (count >= 11) {
+                itemName = "§eEl gran escudo del comandante zombie(✵✵✵✵)";
+            } else {
+                itemName = "§eEl gran escudo del comandante zombie";
             }
 
-
-
+            setItemNameAndLore(shield, itemName,
+                    "§7El mejor escudo creado por una raza desconocida en tiempos antiguos,",
+                    "§7tan fuerte que resistió ataques del Wither, y se dice que de otro ente aun más fuerte...");
 
             customLoots.add(shield);
         }
+
 
         ItemStack faro = new ItemStack(Items.BEACON);
         ItemStack nethB = new ItemStack(Blocks.NETHERITE_BLOCK);
@@ -834,7 +756,7 @@ public class ZombieBossEntity extends Zombie {
 
         return customLoots.get(new Random().nextInt(customLoots.size()));
     }
-    private void setItemNameAndLore(ItemStack itemStack, String itemName, String... lore) {
+    private void setItemNameAndLore(@NotNull ItemStack itemStack, String itemName, String @NotNull ... lore) {
         CompoundTag displayTag = itemStack.getOrCreateTagElement("display");
 
 
@@ -852,17 +774,14 @@ public class ZombieBossEntity extends Zombie {
         }
         displayTag.put("Lore", loreTag);
     }
-
     @Override
     public boolean shouldDropExperience() {
         return true;
     }
-
     @Override
     public boolean isPersistenceRequired() {
         return true;
     }
-
     @Override
     public void handleEntityEvent(byte id) {
         if (id == 16) {
@@ -881,7 +800,6 @@ public class ZombieBossEntity extends Zombie {
             }
         }
     }
-
     public double getConnectedPlayerCount() {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server != null) {
@@ -889,7 +807,6 @@ public class ZombieBossEntity extends Zombie {
         }
         return 1;
     }
-
     public static AttributeSupplier.@NotNull Builder createAttributes() {
         return Zombie.createAttributes()
                 .add(Attributes.MAX_HEALTH, (120.0D * playerCount))
@@ -899,17 +816,14 @@ public class ZombieBossEntity extends Zombie {
                 .add(Attributes.ATTACK_KNOCKBACK, 5.0D)
                 .add(Attributes.ATTACK_SPEED, 0.3D);
     }
-
-    public boolean checkSpawnObstruction(LevelReader levelReader) {
+    public boolean checkSpawnObstruction(@NotNull LevelReader levelReader) {
         return levelReader.isUnobstructed(this);
     }
-
-    public static void onLivingDeath(DamageSource event) {
+    public static void onLivingDeath(@NotNull DamageSource event) {
         if (event.getEntity() instanceof ZombieBossEntity bossEntity) {
             bossEntity.bossEvent.removeAllPlayers();
         }
     }
-
     private void dropChest(NonNullList<ItemStack> chest) {
         double x = this.getX();
         double y = this.getY();
@@ -925,40 +839,43 @@ public class ZombieBossEntity extends Zombie {
             }
         }
     }
-
-    private NonNullList<ItemStack> createChestContents() {
+    private @NotNull NonNullList<ItemStack> createChestContents() {
         NonNullList<ItemStack> chest = NonNullList.create();
         chest.add(new ItemStack(Items.DIAMOND, DIAMOND_COUNT));
         chest.add(new ItemStack(Items.IRON_INGOT, IRON_INGOT_COUNT));
         chest.add(new ItemStack(Items.GOLD_INGOT, GOLD_INGOT_COUNT));
         chest.add(new ItemStack(Blocks.OBSIDIAN, OBSIDIAN_COUNT));
         chest.add(generateUniqueItem());
+        chest.add(generateUniqueItem());
+        chest.add(generateUniqueItem());
+        chest.add(generateUniqueItem());
 
         return chest;
     }
-
+    private @NotNull ItemStack generateUniqueItem(Item item, String name, Map<Enchantment, Integer> enchantments) {
+        ItemStack uniqueItem = new ItemStack(item);
+        EnchantmentHelper.setEnchantments(enchantments, uniqueItem);
+        CompoundTag itemTag = uniqueItem.getOrCreateTag();
+        CompoundTag displayTag = itemTag.getCompound("display");
+        displayTag.putString("Name", "{\"text\":\"" + name + "\"}");
+        itemTag.put("display", displayTag);
+        uniqueItem.setTag(itemTag);
+        uniqueItem.getOrCreateTag().putBoolean("Unbreakable", true);
+        return uniqueItem;
+    }
     private ItemStack generateUniqueItem() {
         List<ItemStack> uniqueItems = new ArrayList<>();
-        
-        ItemStack netherAxe = new ItemStack(Items.NETHERITE_AXE);
-        EnchantmentHelper.setEnchantments(Map.of(
+        Map<Enchantment, Integer> axeEnchantments = Map.of(
                 Enchantments.UNBREAKING, Enchantments.UNBREAKING.getMaxLevel(),
                 Enchantments.SHARPNESS, Enchantments.SHARPNESS.getMaxLevel(),
                 Enchantments.BLOCK_EFFICIENCY, Enchantments.BLOCK_EFFICIENCY.getMaxLevel(),
                 Enchantments.BLOCK_FORTUNE, Enchantments.BLOCK_FORTUNE.getMaxLevel(),
                 Enchantments.MENDING, Enchantments.MENDING.getMaxLevel(),
                 Enchantments.VANISHING_CURSE, Enchantments.VANISHING_CURSE.getMaxLevel()
-        ), netherAxe);
-        CompoundTag axeTag = netherAxe.getOrCreateTag();
-        CompoundTag axeDisplayTag = axeTag.getCompound("display");
-        axeDisplayTag.putString("Name", "{\"text\":\"Hacha del general zombie\"}");
-        axeTag.put("display", axeDisplayTag);
-        netherAxe.setTag(axeTag);
-        netherAxe.getOrCreateTag().putBoolean("Unbreakable", true);
+        );
+        ItemStack netherAxe = generateUniqueItem(Items.NETHERITE_AXE, "Hacha del general zombie", axeEnchantments);
         uniqueItems.add(netherAxe);
-        
-        ItemStack netherHelmet = new ItemStack(Items.NETHERITE_HELMET);
-        EnchantmentHelper.setEnchantments(Map.of(
+        Map<Enchantment, Integer> helmetEnchantments = Map.of(
                 Enchantments.UNBREAKING, Enchantments.UNBREAKING.getMaxLevel(),
                 Enchantments.ALL_DAMAGE_PROTECTION, Enchantments.ALL_DAMAGE_PROTECTION.getMaxLevel(),
                 Enchantments.FIRE_PROTECTION, Enchantments.FIRE_PROTECTION.getMaxLevel(),
@@ -968,17 +885,10 @@ public class ZombieBossEntity extends Zombie {
                 Enchantments.RESPIRATION, Enchantments.RESPIRATION.getMaxLevel(),
                 Enchantments.MENDING, Enchantments.MENDING.getMaxLevel(),
                 Enchantments.VANISHING_CURSE, Enchantments.VANISHING_CURSE.getMaxLevel()
-        ), netherHelmet);
-        CompoundTag helmetTag = netherHelmet.getOrCreateTag();
-        CompoundTag helmetDisplayTag = helmetTag.getCompound("display");
-        helmetDisplayTag.putString("Name", "{\"text\":\"Casco del general zombie\"}");
-        helmetTag.put("display", helmetDisplayTag);
-        netherHelmet.setTag(helmetTag);
-        netherHelmet.getOrCreateTag().putBoolean("Unbreakable", true);
+        );
+        ItemStack netherHelmet = generateUniqueItem(Items.NETHERITE_HELMET, "Casco del general zombie", helmetEnchantments);
         uniqueItems.add(netherHelmet);
-        
-        ItemStack netherChestplate = new ItemStack(Items.NETHERITE_CHESTPLATE);
-        EnchantmentHelper.setEnchantments(Map.of(
+        Map<Enchantment, Integer> chestplateEnchantments = Map.of(
                 Enchantments.UNBREAKING, Enchantments.UNBREAKING.getMaxLevel(),
                 Enchantments.ALL_DAMAGE_PROTECTION, Enchantments.ALL_DAMAGE_PROTECTION.getMaxLevel(),
                 Enchantments.FIRE_PROTECTION, Enchantments.FIRE_PROTECTION.getMaxLevel(),
@@ -987,17 +897,10 @@ public class ZombieBossEntity extends Zombie {
                 Enchantments.THORNS, Enchantments.THORNS.getMaxLevel(),
                 Enchantments.MENDING, Enchantments.MENDING.getMaxLevel(),
                 Enchantments.VANISHING_CURSE, Enchantments.VANISHING_CURSE.getMaxLevel()
-        ), netherChestplate);
-        CompoundTag chestplateTag = netherChestplate.getOrCreateTag();
-        CompoundTag chestplateDisplayTag = chestplateTag.getCompound("display");
-        chestplateDisplayTag.putString("Name", "{\"text\":\"Pechera del general zombie\"}");
-        chestplateTag.put("display", chestplateDisplayTag);
-        netherChestplate.setTag(chestplateTag);
-        netherChestplate.getOrCreateTag().putBoolean("Unbreakable", true);
+        );
+        ItemStack netherChestplate = generateUniqueItem(Items.NETHERITE_CHESTPLATE, "Pechera del general zombie", chestplateEnchantments);
         uniqueItems.add(netherChestplate);
-        
-        ItemStack netherLeggings = new ItemStack(Items.NETHERITE_LEGGINGS);
-        EnchantmentHelper.setEnchantments(Map.of(
+        Map<Enchantment, Integer> leggingsEnchantments = Map.of(
                 Enchantments.UNBREAKING, Enchantments.UNBREAKING.getMaxLevel(),
                 Enchantments.ALL_DAMAGE_PROTECTION, Enchantments.ALL_DAMAGE_PROTECTION.getMaxLevel(),
                 Enchantments.FIRE_PROTECTION, Enchantments.FIRE_PROTECTION.getMaxLevel(),
@@ -1006,17 +909,10 @@ public class ZombieBossEntity extends Zombie {
                 Enchantments.THORNS, Enchantments.THORNS.getMaxLevel(),
                 Enchantments.MENDING, Enchantments.MENDING.getMaxLevel(),
                 Enchantments.VANISHING_CURSE, Enchantments.VANISHING_CURSE.getMaxLevel()
-        ), netherLeggings);
-        CompoundTag leggingsTag = netherLeggings.getOrCreateTag();
-        CompoundTag leggingsDisplayTag = leggingsTag.getCompound("display");
-        leggingsDisplayTag.putString("Name", "{\"text\":\"Pantalon del general zombie\"}");
-        leggingsTag.put("display", leggingsDisplayTag);
-        netherLeggings.setTag(leggingsTag);
-        netherLeggings.getOrCreateTag().putBoolean("Unbreakable", true);
+        );
+        ItemStack netherLeggings = generateUniqueItem(Items.NETHERITE_LEGGINGS, "Pantalón del general zombie", leggingsEnchantments);
         uniqueItems.add(netherLeggings);
-        
-        ItemStack netherBoots = new ItemStack(Items.NETHERITE_BOOTS);
-        EnchantmentHelper.setEnchantments(Map.of(
+        Map<Enchantment, Integer> bootsEnchantments = Map.of(
                 Enchantments.UNBREAKING, Enchantments.UNBREAKING.getMaxLevel(),
                 Enchantments.ALL_DAMAGE_PROTECTION, Enchantments.ALL_DAMAGE_PROTECTION.getMaxLevel(),
                 Enchantments.FIRE_PROTECTION, Enchantments.FIRE_PROTECTION.getMaxLevel(),
@@ -1026,26 +922,19 @@ public class ZombieBossEntity extends Zombie {
                 Enchantments.DEPTH_STRIDER, Enchantments.DEPTH_STRIDER.getMaxLevel(),
                 Enchantments.MENDING, Enchantments.MENDING.getMaxLevel(),
                 Enchantments.VANISHING_CURSE, Enchantments.VANISHING_CURSE.getMaxLevel()
-        ), netherBoots);
-        CompoundTag bootsTag = netherBoots.getOrCreateTag();
-        CompoundTag bootsDisplayTag = bootsTag.getCompound("display");
-        bootsDisplayTag.putString("Name", "{\"text\":\"Botas del general zombie\"}");
-        bootsTag.put("display", bootsDisplayTag);
-        netherBoots.setTag(bootsTag);
-        netherBoots.getOrCreateTag().putBoolean("Unbreakable", true);
+        );
+        ItemStack netherBoots = generateUniqueItem(Items.NETHERITE_BOOTS, "Botas del general zombie", bootsEnchantments);
         uniqueItems.add(netherBoots);
 
         return uniqueItems.get(new Random().nextInt(uniqueItems.size()));
     }
-
     private void dropItem(ItemStack itemStack) {
         double x = this.getX();
         double y = this.getY();
         double z = this.getZ();
         this.level.addFreshEntity(new ItemEntity(this.level, x, y, z, itemStack));
     }
-
-    private void transitionColors() {
+    private BossEvent.BossBarColor transitionColors() {
 
         if (barColor != this.nextColor) {
             float transitionSpeed = 0.05F;
@@ -1067,8 +956,8 @@ public class ZombieBossEntity extends Zombie {
                 barColor = transitionColor;
             }
         }
+        return barColor;
     }
-
     public void aiStep() {
         super.aiStep();
         transitionColors();
@@ -1106,15 +995,9 @@ public class ZombieBossEntity extends Zombie {
                 }
             }
         }
-        if (this.getHealth() < 0.5F) {
-            this.nextColor = ServerBossEvent.BossBarColor.RED;
-        }
-        if (this.getHealth() < 0.2F) {
-            this.nextColor = ServerBossEvent.BossBarColor.PURPLE;
-        }
+        this.bossEvent.setColor(transitionColors());
         this.bossEvent.setProgress(healthPercentage);
     }
-
     public void die(@NotNull DamageSource entity) {
         if (!this.level.isClientSide) {
             if (!this.dead) {

@@ -1,6 +1,6 @@
 package com.techmdq.Ultima.handlers;
 
-import com.techmdq.Ultima.statseffects.Range_Damage;
+import com.techmdq.Ultima.statseffects.RangeDamage;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -16,7 +16,7 @@ public class AttackEventHandler {
         if (event.getSource().getEntity() instanceof LivingEntity attacker) {
             ItemStack heldItem = attacker.getMainHandItem();
             if (!heldItem.isEmpty() && heldItem.getItem() instanceof ProjectileWeaponItem) {
-                Range_Damage.from(heldItem.getItem(),attacker);
+                RangeDamage.applyCustom(heldItem.getItem(),attacker);
             }
         }
     }
